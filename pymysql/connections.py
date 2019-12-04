@@ -1203,7 +1203,7 @@ class MySQLResult(object):
                 break
             if data is not None:
                 if encoding is not None:
-                    data = data.decode(encoding)
+                    data = data.decode(encoding, errors='ignore')
                 if DEBUG: print("DEBUG: DATA = ", data)
                 if converter is not None:
                     data = converter(data)
