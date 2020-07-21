@@ -43,7 +43,7 @@ except (ImportError, KeyError):
     # KeyError occurs when there's no entry in OS database for a current user.
     DEFAULT_USER = None
 
-DEBUG = False
+DEBUG = True
 
 _py_version = sys.version_info[:2]
 
@@ -568,6 +568,7 @@ class Connection(object):
                 if self.unix_socket:
                     sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
                     sock.settimeout(self.connect_timeout)
+                    print("Connecting to", self.unix_socket)
                     sock.connect(self.unix_socket)
                     self.host_info = "Localhost via UNIX socket"
                     self._secure = True
@@ -626,7 +627,7 @@ class Connection(object):
                 # Keep original exception and traceback to investigate error.
                 exc.original_exception = e
                 exc.traceback = traceback.format_exc()
-                if DEBUG: print(exc.traceback)
+                print(exc.traceback)
                 raise exc
 
             # If e is neither DatabaseError or IOError, It's a bug.
